@@ -9,10 +9,10 @@
 </head>
 <body>
   <div class="main-container">
-    <header>Sistema Fatto</header>
+    <header id="system-name">Sistema Fatto</header>
+    <button id="add-task-btn" onclick="showTaskPopup()">Add Task</button>
+
     <div class="main-content">
-      <button id="add-task-btn" onclick="showTaskPopup()">Add Task</button>
-        
       <div class="table-container">
         <table>
           <thead>
@@ -34,20 +34,19 @@
         <div class="popup-edit">
           <form>
             <div class="task-input-container">
-              <label for="task-input">Task</label>
+              <label for="task-input">Task:</label>
               <input type="text" id="task-input" required>
             </div>
             <div class="price-input-container">
-              <label for="price-input">Price</label>
+              <label for="price-input">Price:</label>
               <input type="number" id="price-input" required>
             </div>
             <div class="date-input-container">
-              <label for="date-input">Limit Date</label>
+              <label for="date-input">Limit Date:</label>
               <input type="date" id="date-input" required>
             </div>
+            <button id="edit-save-btn">Save</button>
           </form>
-          
-          <button id="edit-save-btn">Save</button>
         </div>
       </div>
 

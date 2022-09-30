@@ -11,38 +11,51 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgb(255, 229, 214);
 }
 
 .main-container {
   width: 600px;
   height: 600px;
-  background-color: aqua;
+  background-color: #e4233f;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding: 1rem;
-  
 }
 
 .main-content {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 1rem 0 1rem 0;
   align-items: center;
-  background-color: blueviolet;
+  background-color: #851b2a;
   height: 100%;
+  width: 100%;
+  border-radius: 7px;
+  overflow-y: scroll;
+}
+
+.main-content::-webkit-scrollbar{
+  display: none;
+}
+
+#system-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: aliceblue;
 }
 
 #add-task-btn {
-  margin-bottom: 1rem;
+  margin: 1rem 0 1rem 0;
   width: 130px;
-  height: 30px;
+  height: 40px;
   border-radius: 15px;
   border-style: none;
   cursor: pointer;
+  background-color: aliceblue;
 }
 
 .header {
@@ -50,17 +63,39 @@ body {
   flex-direction: column;
 }
 
-thead {
+.table-container {
   width: 100%;
 }
 
-thead th {
-  width: 150px;
-  background-color: blue;
+table {
+  width: 100%;
+}
+
+table thead {
+  background-color: aliceblue;
+  height: 40px;
+}
+
+table thead tr th{
+  border-radius: 7px 7px 0 0;
+}
+
+table tbody tr td {
+  text-align: center;
+  height: 30px;
+  background-color: rgba(240, 248, 255, 0.90);
+}
+
+tbody tr:nth-child(2n+2) {
+  background-color: rgba(240, 248, 255, 0.90);
+}
+
+.nameCollum, .priceCollum, .dateCollum {
+  width: 100px;
 }
 
 .act {
-  width: 60px;
+  width: 50px;
 }
 
 .popup-edit-container, .delete-task-container {
@@ -77,31 +112,67 @@ thead th {
 }
 
 .popup-edit, .delete-task {
-  background-color: white;
+  background-color: aliceblue;
   padding: 1rem;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 15px;
+}
+
+.delete-task span {
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .active {
   display: flex;
 }
 
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 form div {
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+form button, #delete-popup-yes {
+  width: 120px;
+  height: 25px;
+  border-radius: 7px;
+  border-style: none;
+  background-color: #e4233f;
+  color: aliceblue;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#delete-popup-no {
+  width: 120px;
+  height: 25px;
+  border-radius: 7px;
+  border-style: none;
+  background-color: #cecece;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .act img {
   width: 20px;
   height: 20px;
   cursor: pointer;
-}
-
-tr td {
-  text-align: center;
 }

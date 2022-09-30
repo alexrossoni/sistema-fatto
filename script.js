@@ -25,9 +25,9 @@ const loadTasks = () => {
 const putTask = (task, index) => {
   const tableRow = document.createElement('tr');
   tableRow.innerHTML = `
-    <td>${task.name}</td>
-    <td>${task.price}</td>
-    <td>${task.date}</td>
+    <td class="nameCollum">${task.name}</td>
+    <td class="priceCollum">${task.price}</td>
+    <td class="dateCollum">${task.date}</td>
     <td class="act">
       <img src="./assets/icons/edit-icon.svg" alt="Edit task" onclick="editTask(${index})">
     </td>
