@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Fatto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="main-container">
+    <header>Sistema Fatto</header>
+    <div class="main-content">
+      <button id="add-task-btn" onclick="showTaskPopup()">Add Task</button>
+        
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Price</th>
+              <th>Limit Date</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="popup-edit-container">
+        <div class="popup-edit">
+          <form>
+            <div class="task-input-container">
+              <label for="task-input">Task</label>
+              <input type="text" id="task-input" required>
+            </div>
+            <div class="price-input-container">
+              <label for="price-input">Price</label>
+              <input type="number" id="price-input" required>
+            </div>
+            <div class="date-input-container">
+              <label for="date-input">Limit Date</label>
+              <input type="date" id="date-input" required>
+            </div>
+          </form>
+          
+          <button id="edit-save-btn">Save</button>
+        </div>
+      </div>
+
+      <div class="delete-task-container">
+        <div class="delete-task">
+          <span>Deseja realmente excluir a tarefa?</span>
+          <div class="delete-popup-yes-no">
+            <button id="delete-popup-yes">Sim</button>
+            <button id="delete-popup-no">Não</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
