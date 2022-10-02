@@ -24,25 +24,35 @@ const loadTasks = () => {
 
 const putTask = (task, index) => {
   const tableRow = document.createElement('tr');
-  tableRow.innerHTML = `
-    <td class="nameCollum">${task.name}</td>
-    <td class="priceCollum">${task.price}</td>
-    <td class="dateCollum">${task.date}</td>
+  if (task.price >= 1000) {
+    tableRow.innerHTML = `
+    <td>${task.name}</td>
+    <td>${task.price}</td>
+    <td>${task.date}</td>
     <td class="act">
       <img src="./assets/icons/edit-icon.svg" alt="Edit task" onclick="editTask(${index})">
     </td>
     <td class="act">
       <img src="./assets/icons/delete-icon.svg" alt="Delete task" onclick="deleteTask(${index})">
     </td>
-  `
-  tableBody.appendChild(tableRow);
+    `
+    tableRow.classList.add('importantRow')
+    tableBody.appendChild(tableRow);
+  } else {
+    tableRow.innerHTML = `
+    <td>${task.name}</td>
+    <td>${task.price}</td>
+    <td>${task.date}</td>
+    <td class="act">
+      <img src="./assets/icons/edit-icon.svg" alt="Edit task" onclick="editTask(${index})">
+    </td>
+    <td class="act">
+      <img src="./assets/icons/delete-icon.svg" alt="Delete task" onclick="deleteTask(${index})">
+    </td>
+    `
+    tableBody.appendChild(tableRow);
+  }
 }
-
-// function deleteTask(index) {
-//   tasks.splice(index, 1);
-//   setTasksLS();
-//   loadTasks();
-// }
 
 function deleteTask(index) {
   showDeletePopup(index);
@@ -70,6 +80,7 @@ yesDeleteBtn.addEventListener('click', (event) => {
   setTasksLS();
   loadTasks();
   event.preventDefault();
+  id = undefined;
 });
 
 function editTask(index) {
@@ -82,14 +93,15 @@ const showTaskPopup = (edit = false, index = 0) => {
   popupTask.addEventListener('click', function(event) {
     if (event.target.className.indexOf('popup-edit-container') !== -1) {
       popupTask.classList.remove('active');
+      id = undefined;
     }
   })
   
     if (edit) {
+      id = index
       taskInput.value = tasks[index].name;
       priceInput.value = tasks[index].price;
       dateInput.value = tasks[index].date;
-      id = index
     } else {
       taskInput.value = '';
       priceInput.value = '';
@@ -118,6 +130,10 @@ const showTaskPopup = (edit = false, index = 0) => {
     popupTask.classList.remove('active')
     loadTasks()
     id = undefined
+  });
+
+  new Sortable (tableBody, {
+    animation: 300
   });
 
   loadTasks();
