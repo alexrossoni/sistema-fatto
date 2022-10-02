@@ -8,11 +8,24 @@ const deletePopup = document.querySelector('.delete-task-container');
 const yesDeleteBtn = document.querySelector('#delete-popup-yes');
 const noDeleteBtn = document.querySelector('#delete-popup-no');
 
-let tasks
-let id
+let tasks;
+let id;
+let taskKey = '';
+let charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!';
 
-const getTasksLS = () => JSON.parse(localStorage.getItem('localStorageData')) ?? [];
-const setTasksLS = () => localStorage.setItem('localStorageData', JSON.stringify(tasks));
+const getTasksLS = () => JSON.parse(localStorage.getItem('Tarefas')) ?? [];
+
+const setTasksLS = () => localStorage.setItem('Tarefas', JSON.stringify(tasks));
+
+function generateKey(){
+
+  let genKey = '';
+  for(let i = 0, n = charset.length; i < 5; ++i){
+    genKey += charset.charAt(Math.floor(Math.random() * n));
+  }
+
+  taskKey = genKey;
+};
 
 const loadTasks = () => {
   tasks = getTasksLS();
@@ -20,12 +33,14 @@ const loadTasks = () => {
   tasks.forEach((task, index) => {
     putTask(task, index);
   });
-}
+};
 
 const putTask = (task, index) => {
   const tableRow = document.createElement('tr');
-  if (task.price >= 1000) {
+
+  function createElements() {
     tableRow.innerHTML = `
+    <td>${task.key}</td>
     <td>${task.name}</td>
     <td>${task.price}</td>
     <td>${task.date}</td>
@@ -36,27 +51,21 @@ const putTask = (task, index) => {
       <img src="./assets/icons/delete-icon.svg" alt="Delete task" onclick="deleteTask(${index})">
     </td>
     `
-    tableRow.classList.add('importantRow')
-    tableBody.appendChild(tableRow);
-  } else {
-    tableRow.innerHTML = `
-    <td>${task.name}</td>
-    <td>${task.price}</td>
-    <td>${task.date}</td>
-    <td class="act">
-      <img src="./assets/icons/edit-icon.svg" alt="Edit task" onclick="editTask(${index})">
-    </td>
-    <td class="act">
-      <img src="./assets/icons/delete-icon.svg" alt="Delete task" onclick="deleteTask(${index})">
-    </td>
-    `
+    tableRow.setAttribute('data-id', `${task.key}`)
     tableBody.appendChild(tableRow);
   }
-}
+
+  if (task.price >= 1000) {
+    createElements();
+    tableRow.classList.add('importantRow');
+  } else {
+    createElements();
+  }
+};
 
 function deleteTask(index) {
   showDeletePopup(index);
-}
+};
 
 function showDeletePopup(index) {
   deletePopup.classList.add('active');
@@ -68,24 +77,11 @@ function showDeletePopup(index) {
     }
   });
 
-}
-
-noDeleteBtn.addEventListener('click', () => {
-  deletePopup.classList.remove('active');
-});
-
-yesDeleteBtn.addEventListener('click', (event) => {
-  tasks.splice(id, 1);
-  deletePopup.classList.remove('active');
-  setTasksLS();
-  loadTasks();
-  event.preventDefault();
-  id = undefined;
-});
+};
 
 function editTask(index) {
   showTaskPopup(true, index);
-}
+};
 
 const showTaskPopup = (edit = false, index = 0) => {
   popupTask.classList.add('active');
@@ -108,7 +104,42 @@ const showTaskPopup = (edit = false, index = 0) => {
       dateInput.value = '';
     }
     
-  }
+  };
+
+  const sortableTasks = Sortable.create (tableBody, {
+    animation: 300,
+
+    group: "tasksOrder",
+
+    store: {
+      set: function(sortable){
+        const order = sortable.toArray();
+        localStorage.setItem('tasksOrder', order.join('|'));
+      },
+  
+      get: function(){
+        const order = localStorage.getItem('tasksOrder');
+        return order ? order.split('|') : [];
+      }
+    }
+  });
+
+  loadTasks();
+
+  //Events
+
+  noDeleteBtn.addEventListener('click', () => {
+    deletePopup.classList.remove('active');
+  });
+  
+  yesDeleteBtn.addEventListener('click', (event) => {
+    tasks.splice(id, 1);
+    deletePopup.classList.remove('active');
+    setTasksLS();
+    loadTasks();
+    event.preventDefault();
+    id = undefined;
+  });
 
   saveEditBtn.addEventListener('click', (event) => {
     if (taskInput.value == '' || priceInput.value == '' || dateInput.value == '') {
@@ -122,18 +153,19 @@ const showTaskPopup = (edit = false, index = 0) => {
       tasks[id].price = priceInput.value
       tasks[id].date = dateInput.value
     } else {
-      tasks.push({'name': taskInput.value, 'price': priceInput.value, 'date': dateInput.value})
+      generateKey();
+      tasks.push({
+        'name': taskInput.value, 
+        'price': priceInput.value, 
+        'date': dateInput.value,
+        'key': taskKey
+      });
     }
-  
+    
     setTasksLS()
-  
+    
     popupTask.classList.remove('active')
     loadTasks()
     id = undefined
+    taskKey = '';
   });
-
-  new Sortable (tableBody, {
-    animation: 300
-  });
-
-  loadTasks();
