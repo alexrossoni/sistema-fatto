@@ -23,7 +23,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 1rem;
+  padding: 20px;
 }
 
 .main-content {
@@ -33,7 +33,7 @@ body {
   align-items: center;
   background-color: #851b2a;
   height: 100%;
-  width: 100%;
+  width: 560px;
   border-radius: 7px;
   overflow-y: scroll;
 }
@@ -68,34 +68,25 @@ body {
 }
 
 table {
-  width: 100%;
-}
-
-table thead {
-  background-color: aliceblue;
-  height: 40px;
+  width: 560px;
 }
 
 table thead tr th{
   border-radius: 7px 7px 0 0;
+  background-color: aliceblue;
+  height: 40px;
 }
 
-table tbody tr td {
+table tbody tr {
   text-align: center;
   height: 30px;
   background-color: rgba(240, 248, 255, 0.90);
+  user-select: none;
+  cursor: grab;
 }
 
 tbody tr:nth-child(2n+2) {
   background-color: rgba(240, 248, 255, 0.90);
-}
-
-.nameCollum, .priceCollum, .dateCollum {
-  width: 100px;
-}
-
-.act {
-  width: 50px;
 }
 
 .popup-edit-container, .delete-task-container {
@@ -175,4 +166,8 @@ form button, #delete-popup-yes {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.importantRow {
+  background-color: #f9ffc3 !important;
 }
