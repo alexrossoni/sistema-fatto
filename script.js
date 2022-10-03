@@ -170,7 +170,7 @@ const showTaskPopup = (edit = false, index = 0) => {
       }
     };
 
-    if (taskInput.value == '' || priceInput.value == '' || dateInput.value == '') {
+    if (taskInput.value == '' || priceInput.value == '' || priceInput.value < 0 || dateInput.value == '') {
       verifyFieldsPopup.classList.add('active');
       verifyFieldsPopup.addEventListener('click', function(event) {
         if (event.target.className.indexOf('verify-fields-container') !== -1) {
