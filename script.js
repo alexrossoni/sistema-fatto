@@ -37,15 +37,35 @@ const loadTasks = () => {
   });
 };
 
+const updateTasks = () => {
+  const htmlTasks = document.getElementsByTagName('tr');
+  tasks = [];
+  for (let i = 1; i < htmlTasks.length; i++) {
+    htmlTask = htmlTasks[i];
+    keyValue = htmlTask.querySelector('#keyValue').innerText;
+    nameValue = htmlTask.querySelector('#nameValue').innerText;
+    priceValue = htmlTask.querySelector('#priceValue').innerText;
+    dateValueNotConverted = htmlTask.querySelector('#dateValue').innerText;
+    dateValueConverted = dateValueNotConverted.split('/').reverse().join('-');
+    tasks.push({
+      'name': nameValue, 
+      'price': priceValue, 
+      'date': dateValueConverted,
+      'key': keyValue
+    });
+    setTasksLS();
+}
+};
+
 const putTask = (task, index) => {
   const tableRow = document.createElement('tr');
 
   function createElements() {
     tableRow.innerHTML = `
-    <td>${task.key}</td>
-    <td>${task.name}</td>
-    <td>${task.price}</td>
-    <td>${(task.date).split('-').reverse().join('/')}</td>
+    <td id="keyValue">${task.key}</td>
+    <td id="nameValue">${task.name}</td>
+    <td id="priceValue">${task.price}</td>
+    <td id="dateValue">${(task.date).split('-').reverse().join('/')}</td>
     <td class="act">
       <img src="./assets/icons/edit-icon.svg" alt="Edit task" onclick="editTask(${index})">
     </td>
@@ -111,18 +131,9 @@ const showTaskPopup = (edit = false, index = 0) => {
   const sortableTasks = Sortable.create (tableBody, {
     animation: 300,
 
-    group: "tasksOrder",
-
-    store: {
-      set: function(sortable){
-        const order = sortable.toArray();
-        localStorage.setItem('tasksOrder', order.join('|'));
-      },
-  
-      get: function(){
-        const order = localStorage.getItem('tasksOrder');
-        return order ? order.split('|') : [];
-      }
+    onEnd: () => {
+      updateTasks()
+      loadTasks()
     }
   });
 
