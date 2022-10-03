@@ -1,10 +1,12 @@
+const tableBody = document.querySelector('tbody');
 const taskInput = document.querySelector('#task-input');
 const priceInput = document.querySelector('#price-input');
 const dateInput = document.querySelector('#date-input');
-const saveEditBtn = document.querySelector('#edit-save-btn');
 const popupTask = document.querySelector('.popup-edit-container');
-const tableBody = document.querySelector('tbody');
 const deletePopup = document.querySelector('.delete-task-container');
+const verifyNamePopup = document.querySelector('.verify-name-container');
+const verifyFieldsPopup = document.querySelector('.verify-fields-container');
+const saveEditBtn = document.querySelector('#edit-save-btn');
 const yesDeleteBtn = document.querySelector('#delete-popup-yes');
 const noDeleteBtn = document.querySelector('#delete-popup-no');
 
@@ -43,7 +45,7 @@ const putTask = (task, index) => {
     <td>${task.key}</td>
     <td>${task.name}</td>
     <td>${task.price}</td>
-    <td>${task.date}</td>
+    <td>${(task.date).split('-').reverse().join('/')}</td>
     <td class="act">
       <img src="./assets/icons/edit-icon.svg" alt="Edit task" onclick="editTask(${index})">
     </td>
@@ -91,7 +93,7 @@ const showTaskPopup = (edit = false, index = 0) => {
       popupTask.classList.remove('active');
       id = undefined;
     }
-  })
+  });
   
     if (edit) {
       id = index
@@ -142,30 +144,72 @@ const showTaskPopup = (edit = false, index = 0) => {
   });
 
   saveEditBtn.addEventListener('click', (event) => {
-    if (taskInput.value == '' || priceInput.value == '' || dateInput.value == '') {
-      return
-    }
-  
     event.preventDefault();
-  
-    if (id !== undefined) {
-      tasks[id].name = taskInput.value
-      tasks[id].price = priceInput.value
-      tasks[id].date = dateInput.value
-    } else {
-      generateKey();
-      tasks.push({
-        'name': taskInput.value, 
-        'price': priceInput.value, 
-        'date': dateInput.value,
-        'key': taskKey
+    let taskNameInput = taskInput.value;
+    let findName = false;
+
+    function verifyNameExist(taskNameInput){
+      let copyTasks = tasks.slice();
+      if (id !== undefined){
+        copyTasks.splice(id, 1);
+        for(var index = 0, n = copyTasks.length; index < n; index++){
+          let task = copyTasks[index];
+          if(task.name == taskNameInput){
+              findName = true;
+              break;
+          }
+        }
+      } else {
+        for(var index = 0, n = copyTasks.length; index < n; index++){
+          let task = copyTasks[index];
+          if(task.name == taskNameInput){
+              findName = true;
+              break;
+          }
+        }
+      }
+    };
+
+    if (taskInput.value == '' || priceInput.value == '' || dateInput.value == '') {
+      verifyFieldsPopup.classList.add('active');
+      verifyFieldsPopup.addEventListener('click', function(event) {
+        if (event.target.className.indexOf('verify-fields-container') !== -1) {
+          verifyFieldsPopup.classList.remove('active');
+        }
       });
+      return
+    } else {
+      verifyNameExist(taskNameInput)
     }
-    
+  
+    if (findName) {
+      verifyNamePopup.classList.add('active');
+      verifyNamePopup.addEventListener('click', function(event) {
+        if (event.target.className.indexOf('verify-name-container') !== -1) {
+          verifyNamePopup.classList.remove('active');
+        }
+      });
+      findName = false;
+      return
+    } else {
+      if (id !== undefined) {
+        tasks[id].name = taskInput.value
+        tasks[id].price = priceInput.value
+        tasks[id].date = dateInput.value
+      } else {
+        generateKey();
+        tasks.push({
+          'name': taskInput.value, 
+          'price': priceInput.value, 
+          'date': dateInput.value,
+          'key': taskKey
+        });
+      }
+    }
+
     setTasksLS()
-    
-    popupTask.classList.remove('active')
     loadTasks()
+    popupTask.classList.remove('active')
     id = undefined
     taskKey = '';
   });
