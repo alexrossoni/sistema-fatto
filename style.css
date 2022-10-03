@@ -89,7 +89,7 @@ tbody tr:nth-child(2n+2) {
   background-color: rgba(255, 255, 255, 0.95);
 }
 
-.popup-edit-container, .delete-task-container {
+.popup-edit-container, .delete-task-container, .verify-fields-container, .verify-name-container {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -100,6 +100,23 @@ tbody tr:nth-child(2n+2) {
   background-color: rgba(0, 0, 0, 0.3);
   display: none;
   z-index: 999;
+}
+
+.verify-fields img, .verify-name img {
+  margin-top: 10px;
+  width: 50px;
+}
+
+.verify-fields, .verify-name {
+  background-color: aliceblue;
+  padding: 1rem;
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  text-align: center;
 }
 
 .popup-edit, .delete-task {
