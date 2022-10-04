@@ -112,6 +112,7 @@ table tbody tr td {
 table tbody tr td:nth-last-child(-n+2) {
   padding: 0%;
   text-align: center;
+  cursor: auto;
 }
 
 tbody tr:nth-child(2n+2) {
