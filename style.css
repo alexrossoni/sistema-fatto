@@ -12,20 +12,21 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(to right bottom, #ffbfaf, rgb(255, 220, 187));
-  background-repeat: no-repeat;
+  background: rgb(0,125,222);
+  background: linear-gradient(125deg, rgba(0,125,222,1) 15%, rgba(59,165,214,1) 65%);
 }
 
 .main-container {
   width: 1000px;
   height: 600px;
-  background-image: linear-gradient(to right bottom, #e4233f, #c51f38);;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.15));
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding: 20px;
+  box-shadow: 10px 8px 35px rgba(0, 0, 0, 20%);
 }
 
 .main-content {
@@ -33,7 +34,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-image: linear-gradient( #851b2a, rgba(197, 31, 56, 0.2));;
+  background-image: linear-gradient( rgb(0,125,222), rgba(0,125,222, 0.2));;
   height: 100%;
   width: 100%;
   border-radius: 7px;
@@ -45,19 +46,23 @@ body {
 }
 
 #system-name {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  color: aliceblue;
+  color: rgb(0, 40, 71);
+  font-family: 'Gemunu Libre', sans-serif;
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 15%);
+  letter-spacing: 1px;
 }
 
 #add-task-btn {
   margin: 1rem 0 1rem 0;
   width: 130px;
-  height: 40px;
+  height: 50px;
   border-radius: 15px;
   border-style: none;
   cursor: pointer;
   background-color: aliceblue;
+  box-shadow: 5px 5px 7px rgba(0, 0, 0, 15%);
   transition: all 350ms;
 }
 
@@ -84,9 +89,11 @@ table thead tr th{
   border-radius: 7px 7px 0 0;
   background-color: rgb(234, 242, 248);
   height: 40px;
-  border-bottom: 1px solid #851b2a;
+  border-bottom: 1px solid rgb(0,125,222);
   position: sticky;
   top: 0;
+  font-family: 'Gemunu Libre', sans-serif;
+  font-size: 1.25rem;
 }
 
 table tbody tr {
@@ -95,7 +102,7 @@ table tbody tr {
   background-color: rgb(255, 255, 255);
   user-select: none;
   cursor: grab;
-  border-bottom: 1px solid #851b2a;
+  border-bottom: 1px solid rgb(0,125,222);
 }
 
 table tbody tr td {
@@ -184,7 +191,7 @@ form button, #delete-popup-yes {
   height: 25px;
   border-radius: 7px;
   border-style: none;
-  background-color: #e4233f;
+  background-color: rgb(0,125,222);
   color: aliceblue;
   font-weight: bold;
   cursor: pointer;
@@ -210,4 +217,95 @@ form button, #delete-popup-yes {
 
 .importantRow {
   background-color: #f9ffc3 !important;
+}
+
+/* RESPONSIVE FOR TABLETS */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .main-container {
+    width: 750px;
+    height: 600px;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.15));
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 10px 8px 35px rgba(0, 0, 0, 20%);
+  }
+
+  .table-container {
+    width: 710px;
+  }
+
+  table {
+    width: 710px;
+    word-break: break-all;
+    border-collapse: collapse;
+  }
+}
+
+@media screen and (height: 600px) and (width: 1024px) {
+  .main-container {
+    width: 750px;
+    height: 580px;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.15));
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 10px 8px 35px rgba(0, 0, 0, 20%);
+  }
+
+  .table-container {
+    width: 710px;
+  }
+
+  table {
+    width: 710px;
+    word-break: break-all;
+    border-collapse: collapse;
+  }
+
+}
+
+/* RESPONSIVE FOR MOBILE */
+@media screen and (max-width: 767px) {
+  .main-container {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.15));
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 10px 8px 35px rgba(0, 0, 0, 20%);
+  }
+
+  .table-container {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+    word-break: break-all;
+    border-collapse: collapse;
+  }
+
+  table tr {
+    font-size: 10px;
+  }
+
+  table tbody tr td {
+    padding-left: 0;
+  }
+
+  table thead tr th {
+    font-size: 13px;
+  }
+  
 }
