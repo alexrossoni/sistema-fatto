@@ -130,6 +130,8 @@ const showTaskPopup = (edit = false, index = 0) => {
   const sortableTasks = Sortable.create (tableBody, {
     animation: 300,
 
+    handle: "#keyValue, #nameValue, #priceValue,#dateValue",
+
     onEnd: () => {
       updateTasks()
       loadTasks()
