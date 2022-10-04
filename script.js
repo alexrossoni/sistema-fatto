@@ -44,13 +44,12 @@ const updateTasks = () => {
     htmlTask = htmlTasks[i];
     keyValue = htmlTask.querySelector('#keyValue').innerText;
     nameValue = htmlTask.querySelector('#nameValue').innerText;
-    priceValue = htmlTask.querySelector('#priceValue').innerText;
-    dateValueNotConverted = htmlTask.querySelector('#dateValue').innerText;
-    dateValueConverted = dateValueNotConverted.split('/').reverse().join('-');
+    priceValue = (htmlTask.querySelector('#priceValue').innerText).split(',').join('.');
+    dateValue = (htmlTask.querySelector('#dateValue').innerText).split('/').reverse().join('-');
     tasks.push({
       'name': nameValue, 
       'price': priceValue, 
-      'date': dateValueConverted,
+      'date': dateValue,
       'key': keyValue
     });
     setTasksLS();
@@ -64,7 +63,7 @@ const putTask = (task, index) => {
     tableRow.innerHTML = `
     <td id="keyValue">${task.key}</td>
     <td id="nameValue">${task.name}</td>
-    <td id="priceValue">${task.price}</td>
+    <td id="priceValue">${(task.price).split('.').join(',')}</td>
     <td id="dateValue">${(task.date).split('-').reverse().join('/')}</td>
     <td class="act">
       <img src="./assets/icons/edit-icon.svg" alt="Edit task" onclick="editTask(${index})">
@@ -205,13 +204,13 @@ const showTaskPopup = (edit = false, index = 0) => {
     } else {
       if (id !== undefined) {
         tasks[id].name = taskInput.value
-        tasks[id].price = priceInput.value
+        tasks[id].price = Number(priceInput.value).toFixed(2)
         tasks[id].date = dateInput.value
       } else {
         generateKey();
         tasks.push({
           'name': taskInput.value, 
-          'price': priceInput.value, 
+          'price': Number(priceInput.value).toFixed(2),
           'date': dateInput.value,
           'key': taskKey
         });
