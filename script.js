@@ -95,6 +95,7 @@ function showDeletePopup(index) {
   deletePopup.addEventListener('click', function (event) {
     if (event.target.className.indexOf('delete-task-container') !== -1) {
       deletePopup.classList.remove('active');
+      id = undefined;
     }
   });
 
